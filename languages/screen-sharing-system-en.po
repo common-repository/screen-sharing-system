@@ -1,0 +1,62 @@
+# Translation file for Screen Sharing System WordPress Plugin
+# Copyright (C) 2024 
+# This file is distributed under the same license as the Screen Sharing System project
+# FIRST AUTHOR <tlloancy@deter-mi.net>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Screen Sharing System 1.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-25 20:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: English <EN@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: includes/class-screen-sharing-system.php:55 includes/class-screen-sharing-system.php:81
+msgid "Testing WebSocket connection..."
+msgstr "Test en cours de la connexion WebSocket..."
+
+#: includes/class-screen-sharing-system.php:56
+msgid "WebSocket connection to %s OK!"
+msgstr "Connexion WebSocket à %s réussie !"
+
+#: includes/class-screen-sharing-system.php:57
+msgid "WebSocket connection to %s NOK!"
+msgstr "Échec de la connexion WebSocket à %s !"
+
+#: includes/class-screen-sharing-system.php:58
+msgid "WebSocket connection error: %s"
+msgstr "Erreur de connexion WebSocket : %s"
+
+# Ajoutez ici les nouvelles chaînes de la page d'admin et des settings
+
+#: templates/screen-sharing-template.php:10
+msgid "Screen Sharing System"
+msgstr "Système de Partage d'Écran"
+
+#: templates/screen-sharing-template.php:12
+msgid "Start Sharing"
+msgstr "Commencer le Partage"
+
+#: templates/screen-sharing-template.php:13
+msgid "Stop Sharing"
+msgstr "Arrêter le Partage"
+
+#: templates/screen-sharing-template.php:14
+msgid "Start Viewing"
+msgstr "Commencer le Visionnage"
+
+#: templates/screen-sharing-template.php:15
+msgid "Stop Viewing"
+msgstr "Arrêter le Visionnage"
+
+#: templates/screen-sharing-template.php:34
+msgid "Démarrer le Visionnage"
+msgstr "Démarrer le Visionnage"
+
+# Plus de chaînes peuvent être ajoutées selon votre besoin, 
+# assurez-vous de mettre à jour les numéros de ligne correctement.

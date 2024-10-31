@@ -1,0 +1,502 @@
+/* Conteneur principal pour la vidéo et le chat */
+#chat-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+#chat-container {
+  position: fixed;
+  right: 0;
+  top: 10%;
+  width: 300px;
+  height: 80%;
+  background: #ffffff;
+  border-radius: 15px 0 0 15px;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+}
+
+
+#chat-container.open {
+  transform: translateX(0);
+  box-shadow: -10px 0 20px rgba(0,0,0,0.2);
+}
+
+/* Assurez-vous que le conteneur vidéo se cache quand le chat se ferme */
+#chat-container.closed + #video-container-face {
+  display: none;
+}
+
+/* Assurez-vous que le conteneur vidéo reste visible quand le chat est ouvert */
+#chat-container.open + #video-container-face {
+  display: flex;
+  transform: translateX(0);
+}
+
+#chat-header {
+  background: linear-gradient(to right, #0073aa, #00c6ff);
+  padding: 10px;
+  color: white;
+  border-radius: 15px 0 0 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.final-message {
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 18px;
+  max-width: 80%;
+  word-wrap: break-word;
+  transition: background-color 0.3s ease;
+}
+
+.final-message:hover {
+  opacity: 0.9;
+}
+
+.opponent-message {
+  background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
+  color: white;
+  align-self: flex-start;
+}
+
+.my-message {
+  background: #e9e9eb;
+  color: #333;
+  align-self: flex-end;
+}
+
+/*
+#chat-messages {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
+*/
+
+#chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-input {
+  display: flex;
+  align-items: flex-end; /* Ou 'center' selon ce qui convient le mieux */
+  padding: 5px;
+}
+
+#chat-input-field {
+  flex-grow: 1; /* Permet à l'input de prendre tout l'espace disponible */
+  margin-right: 10px; /* Espace entre le champ de texte et le bouton ou l'icône */
+}
+
+#chat-input button {
+  align-self: center; /* Pour aligner avec l'icône si nécessaire */
+  margin-left: 10px; /* espace entre l'input et le bouton d'envoi */
+}
+
+#chat-input-container {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+}
+
+#chat-input textarea {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  resize: none;
+}
+
+#chat-input button {
+  padding: 10px;
+  background: linear-gradient(45deg, #ff4e50, #f9d423);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#chat-input button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#chat-input #file-attachment {
+  position: relative;
+  align-self: center; /* Pour centrer verticalement */
+  margin-right: 10px; /* Ajoute un espace à droite pour séparer de l'input */
+  cursor: pointer;
+  font-size: 20px; /* Ajuste la taille selon le besoin */
+  color: #606060; /* Couleur qui se fond avec le design */
+  transition: color 0.3s ease;
+}
+
+#chat-input #file-attachment:hover {
+  color: #0073aa; /* Change la couleur au survol */
+}
+
+#floating-chat-button {
+	/*z-index: 15000;*/
+	position: fixed;
+  background: linear-gradient(45deg, #ff4e50, #f9d423);
+  right: 20px;
+  bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+#floating-chat-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+#scroll-toggle-container {
+  display: flex;
+  align-items: center;
+  background: #f9f9f9; /* Une couleur de fond qui se fond avec le chat */
+  padding: 5px 10px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.9em; /* Légèrement plus petit pour ne pas dominer */
+}
+
+#auto-scroll-checkbox {
+  display: none; /* Cacher la checkbox standard pour la styliser */
+}
+
+#scroll-toggle-container label {
+  cursor: pointer;
+  color: #333; /* Couleur du texte */
+  margin-left: 5px; /* Espace après la checkbox personnalisée */
+}
+
+/* Créer une checkbox personnalisée */
+#auto-scroll-checkbox + label::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+#auto-scroll-checkbox:checked + label::before {
+  background-color: #0073aa; /* Couleur quand la checkbox est cochée */
+  border-color: #0073aa;
+  box-shadow: inset 0 0 0 3px white; /* Donne l'effet d'une coche */
+}
+
+#auto-scroll-checkbox + label:hover::before {
+  border-color: #0073aa;
+}
+
+#file-preview-container {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+
+#file-thumbnail {
+  max-width: 100%;
+  max-height: 150px;
+}
+
+#progress-container {
+  margin: 10px 0;
+  background: #eee;
+  border: 1px solid #ccc;
+  height: 20px;
+  position: relative;
+}
+
+#progress-bar {
+  background: #0073aa;
+  height: 100%;
+  width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#file-status {
+  margin-top: 10px;
+}
+
+#accept-file, #reject-file {
+  margin: 5px;
+}
+/*
+#video-container-face {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px; // Ajustez la taille selon vos besoins
+  height: 400px;
+  background: #000;
+  border: 1px solid #fff;
+}
+
+#video-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#local-video,
+#remote-video {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
+*/
+
+/* Améliorations pour le conteneur de vidéo */
+#video-container-face {
+	 position: fixed;
+	flex-direction:column;
+	align-items:center;
+	justify-items:center;
+	justify-content:space-around;
+  top: 10%;
+  right: 0;
+  width: 300px; /* Ajustez la largeur selon vos besoins */
+  height: 80%;
+  background: #000; /* Couleur de fond pour le conteneur vidéo */
+  display: none; /* Masquer par défaut */
+  transition: transform 0.3s ease; /* Transition pour le coulissage */
+  /*transform: translateX(-100%);*/ /* Masquer par défaut à gauche de l'écran */
+  border-radius: 15px;
+  overflow: hidden; /* Pour s'assurer que le contenu respecte le border-radius */
+}
+
+#chat-wrapper.video-active #chat-container {
+  margin-left: 300px; /* Largeur du conteneur vidéo */
+}
+#chat-wrapper.video-active #video-container-face {
+  transform: translateX(-100%); /* Déplacer le conteneur vidéo vers la position normale */ /* ici passé de 0 à -100 et enlevé important au desssu */
+}
+#video-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+#local-video,
+#remote-video {
+  width: 90%;
+  height: 41%;
+}
+
+#local-video, #remote-video {
+  border-radius: 15px;
+	 margin-bottom: 10px; /* Ajoute de l'espace en dessous de chaque vidéo */
+}
+
+/* Ajout de styles pour améliorer l'interaction */
+#chat-container, #video-container-face {
+  transition: all 0.3s ease-out;
+}
+
+#chat-container:hover, #video-container-face:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+#chat-messages::-webkit-scrollbar {
+  width: 10px;
+}
+
+#chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+
+#chat-messages::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+
+#chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* Effet léger sur hover pour les messages */
+.final-message:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#refresh-view {
+  /*position: absolute;*/
+  z-index: 10; /* S'assure que le bouton est au-dessus des autres éléments */
+  top: 10px;
+  right: 10px;
+  background-color: #007bff; /* Couleur de fond bleue */
+  color: white; /* Couleur du texte */
+  border: none;
+  border-radius: 50%; /* Rond pour un look moderne */
+  width: 50px;
+  height: 50px;
+  font-size: 20px; /* Taille de l'icône */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Transition pour toutes les propriétés */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ombre pour donner du relief */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#refresh-view:hover {
+  transform: scale(1.1); /* Légère augmentation de la taille au survol */
+  background-color: #0056b3; /* Changement de couleur au survol */
+}
+
+#refresh-view:active {
+  transform: scale(0.95); /* Rétrécissement lors du clic pour un effet de pression */
+}
+
+/* Animation de rotation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#refresh-view.animate {
+  animation: spin 1s linear infinite; /* Animation de rotation */
+}
+
+/* Styles pour les écrans mobiles (par exemple, moins large que 768px) */
+@media screen and (max-width: 768px) {
+	flex: 1;
+  #chat-wrapper {
+    flex-direction: column; /* Sur mobile, on empile les éléments */
+  }
+	
+	 #chat-container {
+		 flex: 1;
+    order: 1; /* Assure que le chat container est affiché en premier */
+    /* Vos autres styles pour #chat-container */
+  }
+
+  #video-container-face {
+	  flex: 1;
+    order: 2; /* Le video container sera affiché après le chat container */
+  }
+
+    #chat-container {
+		display: flex;
+		z-index:10;
+    width: 100%;
+    height: 60vh; /* Adjust height as needed */
+    position: fixed; /* Changed to fixed for sliding effect */
+    top: auto; /* Reset top */
+    bottom: -60vh; /* Starts off-screen */
+    left: 0;
+    transform: translateY(0); /* Reset transform for new direction */
+    transition: transform 0.3s ease, top 0.3s ease, left 0.3s ease;
+  }
+
+  #chat-container.open {
+    transform: translateY(-60vh); /* Slides up to become visible */
+  }
+
+#video-container-face {
+	 position: fixed;
+	z-index: 9;
+  top: auto;/*40%;*/
+  /*right: 0;*/
+	left:0;
+	bottom: -25vh;
+  width: 100%; /*300px;*/ /* Ajustez la largeur selon vos besoins */
+  height: 25vh;
+  background: #000; /* Couleur de fond pour le conteneur vidéo */
+  display: flex; /* Masquer par défaut */
+  transition: transform 0.3s ease; /* Transition pour le coulissage */
+	transform:translateY(100%);
+  /*transform: translateX(-100%) !important;*/ /* Masquer par défaut à gauche de l'écran */
+  border-radius: 15px;
+  overflow: hidden; /* Pour s'assurer que le contenu respecte le border-radius */
+}
+	
+	#chat-wrapper.video-active #chat-container {
+		margin-left:0;
+  /*margin-left: 300px;*/ /* Largeur du conteneur vidéo */
+}
+
+  #chat-wrapper.video-active #video-container-face {
+    /*transform: translateX(0);*/ /* Slides down when active */
+     /*right: -53%;*/
+	 /* display: block;*/ /* Affiche le conteneur vidéo lorsqu'il est actif */
+    transform: translateY(0); /*translateY(-60vh);*/ /* Supposant que vous voulez qu'il glisse vers le haut */
+  }
+
+	#video-layout {
+		flex-direction: row;
+	}
+	
+  /* Ensure these elements take up full width on mobile */
+  #local-video, #remote-video {
+    width: 41%;
+    height: auto; /* Allows for aspect ratio preservation */
+  }
+
+  #floating-chat-button {
+    /* Adjust position if necessary for better visibility on mobile */
+	  bottom: 80px;
+  }
+	
+
+#video-container-face, #chat-container {
+	/*perspective: 1000px;*/
+  /*transition: opacity 0.5s, visibility 0.5s;
+  backface-visibility: hidden;
+	 transform-style: preserve-3d;
+  transition: transform 0.5s;*/ /* Seulement si vous souhaitez une transition ici */
+  visibility: visible; /* Par défaut, l'un des deux est visible */
+  opacity: 1; /* Assurez-vous que l'élément visible a une opacité de 1 */
+}
+/*
+#video-container-face {
+    transform: rotateY(0deg);
+}
+
+#chat-container {
+    transform: rotateY(180deg); // Commence en arrière
+}
+
+#video-container-face.rotate-view {
+    transform: rotateY(-180deg); // ou 180deg selon le sens de rotation désiré
+}
+
+#chat-container.rotate-view {
+    transform: rotateY(0deg);
+}
+	*/
+	/*#refresh-view{
+		display: none;
+	}*/
+}
+
+
+

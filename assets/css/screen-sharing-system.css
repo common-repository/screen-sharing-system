@@ -1,0 +1,296 @@
+#screen-sharing-container {
+    text-align: center;
+}
+
+#video-container {
+    margin-top: 20px;
+}
+
+#shared-screen {
+    width: 80%;
+    height: auto;
+    border: 1px solid #ccc;
+}
+/*
+@media screen and (max-width: 768px) {
+  #local-screen {
+	  width: 21%;
+	}
+}*/
+/*body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }*/
+    /*body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }*/
+.screen-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* For positioning child elements */
+}
+        /*.wrap {
+			margin-top: 10%;
+            text-align: center;
+        }*/
+        #video-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        video {
+            width: 45%;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin: 10px;
+        }
+        #confirmation-panel, #viewing-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        #confirmation-content, #viewing-popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }/*
+        #confirmation-message {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .connected {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .not-connected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }*/
+#confirmation-message {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.connected {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.not-connected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+#sharing-status, #viewing-status {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/*
+#viewing-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#viewing-popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+*/
+/* Style pour le popup */
+#viewing-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#viewing-popup-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+
+#viewing-popup-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333333;
+}
+
+#viewing-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 14px;
+    color: #666666;
+}
+
+#viewing-form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#start-viewing-btn {
+    width: calc(100% - 20px);
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#start-viewing-btn:hover {
+    background-color: #45a049;
+}
+
+#cancel-viewing {
+    margin-top: 10px;
+    background-color: #f44336;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#cancel-viewing:hover {
+    background-color: #da190b;
+}
+
+/* Style commun pour tous les boutons */
+button {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* Style spécifique pour les boutons "Start" */
+#start-sharing, #start-viewing {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: #ffffff;
+}
+
+#start-sharing:hover, #start-viewing:hover {
+    background: linear-gradient(45deg, #45a049, #4CAF50);
+    transform: scale(1.05);
+}
+
+/* Style spécifique pour les boutons "Stop" */
+#stop-sharing, #stop-viewing {
+    background: linear-gradient(45deg, #f44336, #da190b);
+    color: #ffffff;
+}
+
+#stop-sharing:hover, #stop-viewing:hover {
+    background: linear-gradient(45deg, #da190b, #f44336);
+    transform: scale(1.05);
+}
+
+/* Style pour les boutons désactivés */
+button:disabled {
+    background: #bdbdbd;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Effet de focus pour les boutons */
+button:focus {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+/*#remote*//*#video-container {
+    position: relative;
+    display: inline-block;
+    width: 100%; // Ajuste la largeur selon tes besoins
+    height: 100%; // Ajuste la hauteur selon tes besoins
+}*/
+
+/*#remote-screen /*video*/ /*{
+    width: 100%;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}*/
+/*
+#toggle-fullscreen {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#toggle-fullscreen:hover {
+    background-color: #0056b3;
+}
+*/

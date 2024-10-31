@@ -1,0 +1,239 @@
+/* Styles pour les réglages de Screen Sharing */
+.settings-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* For positioning child elements */
+}
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    padding-right: 220px; /* Add padding to make space for the test block */
+}
+
+/* Flex container to hold form fields and lock icon */
+.form-flex-container {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+
+.form-fields-container {
+    flex-grow: 1; /* Take up the remaining space */
+}
+
+.lock-container {
+    margin-left: 20px; /* Space between form fields and lock icon */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lock-icon {
+    width: 40px;
+    height: 40px;
+    background: #ddd;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.lock-icon-locked,
+.lock-icon-unlocked {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: #333;
+    border-radius: 50%;
+}
+
+.lock-icon-locked {
+    display: block;
+}
+
+.lock-icon-unlocked {
+    display: none;
+}
+
+/* When unlocked */
+.lock-icon.unlocked .lock-icon-locked {
+    display: none;
+}
+
+.lock-icon.unlocked .lock-icon-unlocked {
+    display: block;
+}
+
+.lock-info {
+    display: none; /* Hidden by default */
+}
+
+/* Show lock info when unlocked */
+.lock-icon.unlocked ~ .lock-info {
+    display: block;
+}
+
+.settings-form input:disabled,
+.settings-form select:disabled {
+    background-color: #eee;
+    cursor: not-allowed;
+}
+
+.settings-form input,
+.settings-form select {
+    transition: background-color 0.3s ease;
+}
+
+.settings-form .unlocked input,
+.settings-form .unlocked select {
+    background-color: #fff;
+}
+
+/* Styles pour les boutons ronds */
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+    position: relative; /* To ensure correct positioning of the aura effect */
+}
+
+.btn-round {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    line-height: 150px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative; /* For the aura effect */
+    overflow: hidden; /* Ensure the aura doesn't exceed button bounds */
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #28a745, #218838); /* Green gradient */
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Blue gradient */
+}
+
+/* Aura animée autour des boutons */
+.btn-round::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.7); /* Aura verte avec un effet d'ombre */
+    animation: pulse 2s infinite; /* Animation d'aura */
+    z-index: -1; /* Placer l'aura derrière le bouton */
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+    }
+}
+
+.btn-round:hover {
+    transform: scale(1.05);
+}
+
+.result-message {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.result-message.success {
+    color: #28a745; /* Green color for success */
+}
+
+.result-message.error {
+    color: #dc3545; /* Red color for error */
+}
+
+.warning-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-left: 20px;
+}
+
+.warning-triangle {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid red;
+    margin: 0 5px;
+}
+
+.warning-triangle:last-of-type {
+    border-bottom-color: red;
+    transform: rotate(180deg);
+}
+
+.advanced-warning {
+    color: #d9534f; /* Bootstrap Danger Color */
+    font-weight: bold;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005177;
+}
+/* Media queries for mobile devices */
+@media (max-width: 600px) {
+	.settings-form{
+		width: 90%;
+	}
+}
